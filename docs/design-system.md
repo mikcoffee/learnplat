@@ -2,9 +2,9 @@
 
 ## Colors
 
-- Primary: `#D4AF37` (Gold Leaf)
-- Primary Hover: `#B5952F`
-- Neutrals: `#121212` (BG), `#1E1E1E` (Surface), `#2A2A2A` (Surface Alt), `#333333` (Border), `#E8E8E8` (Text), `#A0A0A0` (Text Muted), `#121212` (On Primary)
+- Primary: `#6B4600`
+- Primary Hover: `#4A3000`
+- Neutrals: `#F2F2F2` (BG), `#FFFFFF` (Surface), `#E8E8E8` (Surface Alt), `#A3A3A3` (Border), `#0A0A0A` (Text), `#404040` (Text Muted), `#FFFFFF` (On Primary)
 
 ## Typography
 
