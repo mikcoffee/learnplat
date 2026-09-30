@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif;
   background-color: #E6D6C1;
@@ -19,4 +23,9 @@ button {
 
 a {
   color: #7A553A;
+}
+
+input {
+  padding: 8px; /* 05-task2 */
+  margin-bottom: 16px; /* 05-task3 */
 }
