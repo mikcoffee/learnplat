@@ -269,8 +269,25 @@ main {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
+}
+
+@media (min-width: 375px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+ 
+@media (min-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .card {
