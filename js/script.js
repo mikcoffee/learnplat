@@ -30,7 +30,7 @@ const emailValidation = (email) => {if (email === "")
 console.log(emailValidation(""));
 
 /* Module 6 guided */
-console.log("Task 5 Guided");
+console.log("Module 6 Guided");
 singleGroup = { subject: "Mathematics", students: 5, schedule: "monday" };
 const subj1 = singleGroup.subject;
 console.log(subj1);
@@ -45,7 +45,7 @@ function describeGroup (subject, students) {
 
 console.log(describeGroup(subject, students));
 
-/* Last task */
+/* Module 6 project task */
 console.log("Last task:");
 function schedulePrint (group) {
   const { subject, schedule } = group;
@@ -55,3 +55,6 @@ function schedulePrint (group) {
 for (const group of groups ) {
   schedulePrint(group);
 };
+
+/* Module 7 guided */
+/* Module 7 project task */
