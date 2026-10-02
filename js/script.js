@@ -1,27 +1,23 @@
-console.log("Script loaded successfully");
-const projectName = "Study Group Search Engine";
-console.log(projectName);
-const mainSubject = "Main Subject";
-console.log(mainSubject);
-const totalGroups = 3;
-console.log(totalGroups);
-let positionsAvailable = 0;
-
 const appName = "Learnplat";
+const projectName = "Study Group Search Engine";
+const mainSubject = "Main Subject";
+const totalGroups = 6;
+let positionsAvailable = 10;
 
 const articles = ["Mathematics", "Physics", "Programming", "History", "Literature", "Сhemistry"];
 
-for (const article of articles) {
-  console.log("Subject: ", article);
+function groupStatus(participants) {
+  if (participants >= 10) { return "Full"; }
+  else if (participants >=5) { return "Almost full"; }
+  else { return "Spaces available"; }
 }
 
-if (positionsAvailable > 3) {
-  console.log("Positions available");
-}
-else if (positionsAvailable <= 3 && positionsAvailable > 0) {
-  console.log("Almost full");
-}
-else if (positionsAvailable === 0) {
-  console.log("Group Full");
-}
+const emailValidation = (email) => {if (email === "")
+{ return "empty email"; } return "good email"; }
+
+console.log(groupStatus(8));
+console.log(groupStatus(10));
+console.log(groupStatus(0));
+console.log(emailValidation(""));
+console.log(emailValidation("123"));
 
