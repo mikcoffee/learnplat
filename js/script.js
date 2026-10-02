@@ -46,7 +46,7 @@ function describeGroup (subject, students) {
 console.log(describeGroup(subject, students));
 
 /* Module 6 project task */
-console.log("Last task:");
+console.log("Module 6 project task:");
 function schedulePrint (group) {
   const { subject, schedule } = group;
   console.log(subject + ": " + schedule);
@@ -56,5 +56,35 @@ for (const group of groups ) {
   schedulePrint(group);
 };
 
-/* Module 7 guided */
-/* Module 7 project task */
+/* Module 7 task */
+console.log("Module 7 task: ");
+console.log(document.title);
+
+const titulo = document.querySelector("h1");
+
+if (titulo) {
+  console.log(titulo.textContent);
+} else {
+  console.log("Can't find h1");
+};
+
+
+const cards = document.querySelectorAll(".card");
+console.log("Cards number: " + cards.length);
+
+const searchField = document.querySelector(".search");
+
+if (searchField) {
+  console.log(searchField.value);
+} else {
+  console.log("Can't find .search");
+};
+
+
+const buttonElement = document.querySelector(".button");
+
+if (buttonElement) {
+  console.log("Button text: " + buttonElement.textContent);
+} else {
+  console.log("Can't find .button");
+};
