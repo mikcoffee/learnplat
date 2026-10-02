@@ -29,7 +29,7 @@ const emailValidation = (email) => {if (email === "")
 
 console.log(emailValidation(""));
 
-/* task 5 guided */
+/* Module 6 guided */
 console.log("Task 5 Guided");
 singleGroup = { subject: "Mathematics", students: 5, schedule: "monday" };
 const subj1 = singleGroup.subject;
