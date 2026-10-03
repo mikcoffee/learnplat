@@ -88,3 +88,24 @@ if (buttonElement) {
 } else {
   console.log("Can't find .button");
 };
+
+/* Module 8 */
+
+// change item text
+titulo.textContent = "Welcome back!";
+
+// class add
+const card = document.querySelector(".card");
+card.classList.add("highlight");
+const isAdded = card.classList.contains("highlight");
+
+// add element
+const navbar_list = document.querySelector('.navbar__links');
+const item = document.createElement('li');
+item.textContent = "Item";
+navbar_list.appendChild(item);
+
+// remove element (avatar)
+const avatarElem = document.querySelector('.avatar');
+avatarElem.remove();
+

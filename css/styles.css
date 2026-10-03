@@ -393,3 +393,10 @@ main {
   height: 88px;
   font-size: 1.6rem;
 }
+
+/* ---------- For Module 08 (semana 3) ---------- */
+/* ---------- delete after testing ---------- */
+.highlight {
+  background-color: red;
+  border: 2px solid yellow;
+}
