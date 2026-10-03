@@ -15,10 +15,11 @@ const groups = [
   { subject: "Chemistry", students: 2, schedule: "saturday" },
 ];
 
+/*
 const availGroups = groups.filter(group => group.students < 10);
 console.log("number of available groups: ", availGroups.length);
 
-const searchString = "Mathematics"; /* imagine user typed it in Search field*/
+const searchString = "Mathematics"; // imagine user typed it in Search field
 const foundGroups = groups.filter(group => group.subject === searchString);
 
 for (const foundGroup of foundGroups) { 
@@ -28,8 +29,10 @@ const emailValidation = (email) => {if (email === "")
 { return "empty email"; } return "good email"; }
 
 console.log(emailValidation(""));
+*/
 
 /* Module 6 guided */
+/*
 console.log("Module 6 Guided");
 singleGroup = { subject: "Mathematics", students: 5, schedule: "monday" };
 const subj1 = singleGroup.subject;
@@ -44,8 +47,10 @@ function describeGroup (subject, students) {
 };
 
 console.log(describeGroup(subject, students));
+*/
 
 /* Module 6 project task */
+/*
 console.log("Module 6 project task:");
 function schedulePrint (group) {
   const { subject, schedule } = group;
@@ -55,6 +60,7 @@ function schedulePrint (group) {
 for (const group of groups ) {
   schedulePrint(group);
 };
+*/
 
 /* Module 7 task */
 console.log("Module 7 task: ");
@@ -95,17 +101,53 @@ if (buttonElement) {
 titulo.textContent = "Welcome back!";
 
 // class add
+/* 
 const card = document.querySelector(".card");
-card.classList.add("highlight");
-const isAdded = card.classList.contains("highlight");
+if (card) {
+  card.classList.add("highlight");
+  const isAdded = card.classList.contains("highlight");
+}
+else {
+  console.log(".card not found");
+}
+*/
 
 // add element
+/*
 const navbar_list = document.querySelector('.navbar__links');
 const item = document.createElement('li');
 item.textContent = "Item";
-navbar_list.appendChild(item);
+if (navbar_list) {
+  navbar_list.appendChild(item);
+}
+*/
 
 // remove element (avatar)
+/*
 const avatarElem = document.querySelector('.avatar');
-avatarElem.remove();
+if (avatarElem) {
+  avatarElem.remove();
+}
+*/
+
+/* Module 9 */
+
+const buttonSelected = document.querySelector('button');
+buttonSelected.addEventListener("click", function () {
+  console.log("Button clicked");
+});
+
+const formSelected = document.querySelector('.form-login');
+if (formSelected) {
+  formSelected.addEventListener("submit", function (event) {
+    event.preventDefault();
+    console.log("form - no reload");});
+};
+
+const searchSelected = document.querySelector('.search');
+if (searchSelected) {
+  searchSelected.addEventListener("input", function (event) {
+    console.log(event.target.value)});
+};
+
 
