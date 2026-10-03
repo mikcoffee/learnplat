@@ -150,4 +150,52 @@ if (searchSelected) {
     console.log(event.target.value)});
 };
 
+// Login
 
+const formLogin = document.querySelector("#form-login");
+if (formLogin) { // only on Login page
+  console.log("login page ok");
+
+  const fieldEmail = document.querySelector("#email");
+  const fieldPass = document.querySelector("#password");
+  const errorEmail = document.querySelector("#error-email");
+  const errorPass = document.querySelector("#error-pass");
+  const messageSuccess = document.querySelector("#message-success");
+
+
+  formLogin.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const email = fieldEmail.value.trim();
+    const pass = fieldPass.value;
+
+    errorEmail.textContent = "";
+    errorPass.textContent = "";
+    messageSuccess.textContent = "";
+    let valid = true;
+
+    if (!email) {
+      errorEmail.textContent = "Enter your e-mail.";
+      valid = false;
+    } else if (!email.includes("@")) {
+      errorEmail.textContent = "Enter correct email.";
+      valid = false;
+    }
+
+    if (!pass) {
+      errorPass.textContent = "Enter your password.";
+      valid = false;
+    } else if (pass.length < 8) {
+      errorPass.textContent = "Password must be at least 8 characters.";
+      valid = false;
+    }
+
+    if (valid) {
+      messageSuccess.textContent = "Valid login! (without backend yet, nothing is actually sent.)";
+      console.log("Valid form:", { email });
+    }
+  });
+}
+else {
+  console.log("no login form found");
+}
