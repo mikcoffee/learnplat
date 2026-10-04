@@ -6,13 +6,13 @@ let positionsAvailable = 10;
 
 const articles = ["Mathematics", "Physics", "Programming", "History", "Literature", "Сhemistry"];
 
-const groups = [
-  { subject: "Mathematics", students: 5, schedule: "monday" },
-  { subject: "Physics", students: 0, schedule: "tuesday" },
-  { subject: "Programming", students: 10, schedule: "wednesday" },
-  { subject: "History", students: 3, schedule: "thursday" },
-  { subject: "Literature", students: 7, schedule: "friday" },
-  { subject: "Chemistry", students: 2, schedule: "saturday" },
+const groupsMock = [
+  { id: 1, subject: "Mathematics", students: 5, schedule: "monday" },
+  { id: 2, subject: "Physics", students: 0, schedule: "tuesday" },
+  { id: 3, subject: "Programming", students: 10, schedule: "wednesday" },
+  { id: 4, subject: "History", students: 3, schedule: "thursday" },
+  { id: 5, subject: "Literature", students: 7, schedule: "friday" },
+  { id: 6, subject: "Chemistry", students: 2, schedule: "saturday" },
 ];
 
 /*
@@ -199,3 +199,10 @@ if (formLogin) { // only on Login page
 else {
   console.log("no login form found");
 }
+
+/* Module 11 */
+
+const textJSON = JSON.stringify(groupsMock);
+console.log(textJSON);
+const ObjetoDeVolta = JSON.parse(textJSON);
+console.log(ObjetoDeVolta[0].subject);
