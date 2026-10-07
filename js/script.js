@@ -13,11 +13,82 @@ let groupsProfileMock = [
   { id: 3, subject: "Programming", students: 10, schedule: "wednesday" },
 ];
 
-// Login
+const userMock = {
+  name: "John Smith",
+  email: "john.smith@supermail.com",
+  subjects: [1, 2, 3],
+};
 
-const formLogin = document.querySelector("#form-login");
-if (formLogin) {
-  console.log("login page ok");
+
+// ---------- Reusable components ----------
+
+function createCardHTML(group, action) {
+  let buttonLabel;
+  if (action === false) { // false means Exit, true means Learn
+    buttonLabel = "Exit";
+  } else {
+    buttonLabel = "Learn";
+  }
+
+  let buttonClass;
+  if (action === false) {
+    buttonClass = "button-secondary";
+  } else {
+    buttonClass = "button-primary";
+  }
+
+  return `
+    <article class="card">
+      <h3>${group.subject}</h3>
+      <p>${group.students} students</p>
+      <button class="button ${buttonClass}" type="button" data-id="${group.id}" data-action="${action}">
+        ${buttonLabel}
+      </button>
+    </article>
+  `;
+}
+
+// no groups
+
+function htmlEmptyState(message) {
+  return `<p class="empty-state">${message}</p>`;
+}
+
+// ============================================================
+// MAIN PAGE (INDEX)
+// ============================================================
+
+function iniciateIndex() {
+  const container = document.querySelector("#index-grid");
+  if (!container) return; // not the Index page
+
+  // Render groups
+  function renderGroups(list) {
+    if (list.length) { // if list is not empty
+      container.innerHTML = list.map((g) => createCardHTML(g, true)).join("");
+    } else {  // if list is empty
+      container.innerHTML = htmlEmptyState("No groups found.");
+    }
+  }
+
+  // Click button
+  container.addEventListener("click", function (event) {
+    const button = event.target.closest("button");
+    if (!button) return;
+    console.log("Take clicked, group id:", button.dataset.id);
+  });
+
+
+  renderGroups(groupsMock);
+}
+
+// ============================================================
+// LOGIN
+// ============================================================
+
+function iniciateLogin() {
+  const formLogin = document.querySelector("#form-login");
+  if(!formLogin) return; // not the Login page
 
   const fieldEmail = document.querySelector("#email");
   const fieldPass = document.querySelector("#password");
@@ -25,9 +96,8 @@ if (formLogin) {
   const errorPass = document.querySelector("#error-pass");
   const messageSuccess = document.querySelector("#message-success");
 
-
   formLogin.addEventListener("submit", function (event) {
-    event.preventDefault();
+    event.preventDefault(); // do not reload page
 
     const email = fieldEmail.value.trim();
     const pass = fieldPass.value;
@@ -36,7 +106,7 @@ if (formLogin) {
     errorPass.textContent = "";
     messageSuccess.textContent = "";
     let valid = true;
-
+    
     if (!email) {
       errorEmail.textContent = "Enter your e-mail.";
       valid = false;
@@ -59,36 +129,25 @@ if (formLogin) {
     }
   });
 }
-else {
-  console.log("no login form found");
-}
 
-/* Module 13 */
+// ============================================================
+// DASHBOARD
+// ============================================================
 
+function iniciateDashboard() {
+  const container = document.querySelector("#dashboard-grid");
+  if (!container) return; // not the Dashboard page
 
-// dashboard
-
-function createCardHTML(group) {
-  return `
-    <article class="card">
-    <h3>${group.subject}</h3>
-    <p>${group.students} students</p>
-    <button class="button button-primary">Take</button>
-    </article>
-  `;
-}
-
-const container = document.querySelector("#dashboard-grid");
-
-if (container) {
+  // Render groups
   function renderGroups(list) {
-    const html = list.map(createCardHTML).join("");
-    container.innerHTML = html;
-  }
+    if (list.length) { // if list is not empty
+      container.innerHTML = list.map((g) => createCardHTML(g, true)).join("");
+    } else {  // if list is empty
+      container.innerHTML = htmlEmptyState("No groups found.");
+    }
+  }  
 
-  renderGroups(groupsMock);
-
-  // search
+  // Search
   const searchField = document.querySelector("#search");
   if (searchField) {
     searchField.addEventListener("input", function (event) {
@@ -100,64 +159,95 @@ if (container) {
     });
   }
 
-}
-
-// add new group
-
-const containerButtonNew = document.querySelector("#button-new-group");
-
-if (containerButtonNew) {
-  containerButtonNew.addEventListener("click", function () {
-    const groupId = Number(event.target.dataset.id);
-
-    console.log("ok");
-    
-    newGroup = { subject: "NewGroup", students: 10 };
-    
-    function addGroup(newGroup) {
-      const groupToAdd = {
-        id: Date.now(),
-        subject: newGroup.subject,
-        students: newGroup.students
-      };
-        
-      groupsMock.push(groupToAdd);
-      renderGroups(groupsMock);
-    }
-
-    addGroup(newGroup);
+  // Click Take button
+  container.addEventListener("click", function (event) {
+    const button = event.target.closest("button");
+    if (!button) return;
+    console.log("Take clicked, group id:", button.dataset.id);
   });
-}
 
-// Profile
+  // New group add
+  const containerButtonNew = document.querySelector("#button-new-group");
+  if (containerButtonNew) {
+    containerButtonNew.addEventListener("click", function () {
+      const groupId = Number(event.target.dataset.id);
+      newGroup = { subject: "NewGroup", students: 10 };
+      
+      function addGroup(newGroup) {
+        const groupToAdd = {
+          id: Date.now(),
+          subject: newGroup.subject,
+          students: newGroup.students
+        };
+          
+        groupsMock.push(groupToAdd);
+        renderGroups(groupsMock);
+      }
 
-function createProfileCardHTML(group) {
-  return `
-    <article class="card">
-    <h3>${group.subject}</h3>
-    <p>${group.students} students</p>
-    <button class="button button-primary" data-id="${group.id}"">Exit</button>
-    </article>
-  `;
-}
-
-const containerProfile = document.querySelector("#profile-grid");
-
-if (containerProfile) {
-  function renderGroups(list) {
-    const html = list.map(createProfileCardHTML).join("");
-    containerProfile.innerHTML = html;
+      addGroup(newGroup);
+    });
   }
 
-  renderGroups(groupsProfileMock);
-
-  // exit group
-
-  containerProfile.addEventListener("click", function () {
-    if (event.target.classList.contains("button-primary")) {
-      const groupId = Number(event.target.dataset.id);  
-      groupsProfileMock = groupsProfileMock.filter((g) => g.id !== groupId);
-      renderGroups(groupsProfileMock);
-    }
-  });
+  renderGroups(groupsMock);
 }
+
+// ============================================================
+// PROFILE
+// ============================================================
+
+function iniciateProfile() {
+  const containerProfile = document.querySelector("#profile-grid");
+  if (!containerProfile) return; // not the Profile page
+
+  const nameEl = document.querySelector("#profile-name");
+  const emailEl = document.querySelector("#profile-email");
+  const tagsEl = document.querySelector("#profile-tags");
+  const countEl = document.querySelector("#profile-count");
+
+  const { name, email } = userMock;
+
+  nameEl.textContent = name;
+  emailEl.textContent = email;
+
+  function myGroups() {
+    return groupsMock.filter((g) => userMock.subjects.includes(g.id));
+  }
+
+  function renderTags(list) {
+    tagsEl.innerHTML = list.map((g) => `<span class="tag">${g.subject}</span>`).join("");
+  }
+
+  function renderMyGroups() {
+    const list = myGroups();
+    countEl.textContent = `You are in ${list.length} group${list.length === 1 ? "" : "s"}.`;
+    if (list.length) {
+      containerProfile.innerHTML = list.map((g) => createCardHTML(g, false)).join("");
+    } else {
+      containerProfile.innerHTML = htmlEmptyState("You have no groups.");
+    }
+    renderTags(list);
+  }  
+
+  function exitGroup(id) {
+    console.log("exitGroup in");
+    userMock.subjects = userMock.subjects.filter((subjectId) => subjectId !== id);
+    renderMyGroups();
+  }
+
+  containerProfile.addEventListener("click", function (event) {
+    const button = event.target.closest("button");
+    if (!button) return;
+    exitGroup(Number(button.dataset.id));
+  });
+
+  renderMyGroups();
+}
+
+// ============================================================
+// Entry point
+// ============================================================
+
+iniciateLogin();
+iniciateDashboard();
+iniciateProfile();
+iniciateIndex();

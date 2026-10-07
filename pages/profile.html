@@ -9,7 +9,7 @@
 </head>
 <body>
   <header class="navbar">
-    <a href="dashboard.html" class="navbar__logo">Learning Platform</a>
+    <a href="index.html" class="navbar__logo">Learning Platform</a>
     <nav>
       <ul class="navbar__links">
         <li><a href="dashboard.html">Dashboard</a></li>
@@ -24,13 +24,9 @@
     <div class="profile-top">
       <div class="avatar-profile avatar--lg" aria-hidden="true">JS</div>
       <div class="profile-info">
-        <h2>John Smith</h2>
-        <p>john.smith@supermail.com</p>
-        <div class="tags">
-          <span class="tag">Mathematics</span>
-          <span class="tag">Physics</span>
-          <span class="tag">Programming</span>
-        </div>
+        <h2 id="profile-name">Loading problem...</h2>
+        <p id="profile-email"></p>
+        <div class="tags" id="profile-tags"></div>
         <div class="profile-stock">
           <button class="button button-primary" type="button">Edit profile</button>
           <button class="button botton-secondary" type="button">Exit</button>
@@ -40,7 +36,7 @@
 
     <div class="page-header">
       <h1>My courses</h1>
-      <p>List of courses.</p>
+      <p id="profile-count">You participate in 0 groups.</p>
     </div>
 
     <section class="dashboard-grid" aria-label="Courses you participate in" id="profile-grid">      
