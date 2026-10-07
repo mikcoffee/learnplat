@@ -75,9 +75,8 @@ function iniciateIndex() {
   container.addEventListener("click", function (event) {
     const button = event.target.closest("button");
     if (!button) return;
-    console.log("Take clicked, group id:", button.dataset.id);
+    window.location.href = "login.html";
   });
-
 
   renderGroups(groupsMock);
 }
@@ -159,11 +158,11 @@ function iniciateDashboard() {
     });
   }
 
-  // Click Take button
+  // Click Learn button
   container.addEventListener("click", function (event) {
     const button = event.target.closest("button");
     if (!button) return;
-    console.log("Take clicked, group id:", button.dataset.id);
+    console.log("Learn clicked, group id:", button.dataset.id);
   });
 
   // New group add
