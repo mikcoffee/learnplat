@@ -133,7 +133,7 @@ a.avatar {
 
 /* ---------- Buttons ---------- */
 
-button {
+button, .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -175,148 +175,157 @@ input:focus-visible {
 
 /* ---------------------------------------- */
 
-/* ---------- Main Page ---------- */
-
+/* ---------- Main page (index) ---------- */
 .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 600px;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 37.5rem; /* 600px */
+  text-align: center;
+  padding: 0;
 }
 
-.hero h1 {
-    font-size: 72px;
-    font-weight: var(--font-weight-bold);
-    margin: 0;
-    padding: 0;
+.hero__title {
+  font-size: 4.5rem; /* 72px */
+  font-weight: var(--font-weight-bold);
+  margin: 0;
 }
 
-.hero p {
-    font-size: 28px;
-    font-weight: 300;
-    color: var(--color-text-muted);
-    margin-bottom: var(--spacing-xl);
-    margin-top: 0;
-    padding: 0;
+.hero__subtitle {
+  font-size: 1.75rem; /* 28px */
+  font-weight: 300;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--spacing-xl) 0;
 }
 
-.hero-buttons {
-    display: flex;
-    gap: 20px;
+.hero__buttons {
+  display: flex;
+  gap: var(--spacing-lg);
 }
 
-/* ------------- HOW IT WORKS ------------ */
-
+/* ---------- How It Works ---------- */
 .how-it-works {
-    padding: 80px 60px;
-    background-color: var(--color-bg2);
+  padding: 5rem 3.75rem; /* 80px 60px */
+  background-color: var(--color-bg2);
 }
 
-.section-title {
-    font-size: 48px;
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text2);
-    margin-bottom: 50px;
+.how-it-works__title {
+  font-size: 3rem; /* 48px */
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text2);
+  margin-bottom: 3.125rem; /* 50px */
 }
 
-.steps-grid {
-    display: grid;
+.steps__grid {
+  display: grid;
+  gap: var(--spacing-xl);
+}
+
+@media (min-width: 375px) {
+  .steps__grid { grid-template-columns: repeat(1, 1fr); }
+}
+@media (min-width: 768px) {
+  .steps__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1200px) {
+  .steps__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.steps__card {
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  background: var(--color-bg);
+}
+
+.steps__title {
+  font-size: 2rem; /* 32px */
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text2);
+  margin-bottom: var(--spacing-md);
+}
+
+.steps__description {
+  font-size: 1rem; /* 16px */
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ---------- Subjects ---------- */
+.subjects {
+  padding: 5rem 3.75rem; /* 80px 60px */
+  background-color: var(--color-bg);
+}
+
+.subjects__heading {
+  font-size: 2.25rem; /* 36px */
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.subjects__subheading {
+  font-size: 1.25rem; /* 20px */
+  color: var(--color-text-muted);
+  margin-bottom: 3.125rem; /* 50px */
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 1px solid var(--color-border);
+  padding: 3.125rem 3.75rem 2.5rem; /* 50px 60px 40px */
+  background-color: var(--color-surface);
+}
+
+.footer__columns {
+  display: grid;
+  gap: 2.5rem; /* 40px */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .footer__columns {
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-xl);
+    gap: 3.75rem; /* 60px */
+  }
 }
 
-.step-card {
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-xl);
-    background: var(--color-bg);
+@media (min-width: 1200px) {
+  .footer__columns {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem; /* 80px */
+  }
 }
 
-.step-title {
-    font-size: 32px;
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text2);
-    margin-bottom: var(--spacing-md);
+.footer__column-title {
+  font-size: 1rem; /* 16px */
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-lg);
 }
 
-.step-description {
-    font-size: 16px;
-    color: var(--color-text-muted);
-    line-height: 1.6;
-    margin-bottom: var(--spacing-md);
+.footer__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Subjects Section */
-
-.subj-section {
-    padding: 80px 60px;
-    background-color: var(--color-bg);
+.footer__item {
+  margin-bottom: var(--spacing-md);
 }
 
-.subj-section .section-heading {
-    font-size: 36px;
-    font-weight: var(--font-weight-bold);
-    margin-bottom: 8px;
+.footer__link {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.3s;
 }
 
-.subj-section .section-subheading {
-    font-size: 20px;
-    color: var(--color-text-muted);
-    margin-bottom: 50px;
+.footer__link:hover {
+  opacity: 0.7;
 }
 
-
-/* Footer */
-footer {
-    border-top: 1px solid #333;
-    padding: 50px 60px 40px;
-    background-color: var(--color-surface);
-}
-
-.footer-top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: var(--spacing-xl);
-    gap: 40px;
-}
-
-.footer-columns {
-    display: flex;
-    gap: 80px;
-    flex: 1;
-}
-
-.footer-column h4 {
-    font-size: 16px;
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--spacing-lg);
-}
-
-.footer-column ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-column ul li {
-    margin-bottom: var(--spacing-md);
-}
-
-.footer-column ul li a {
-    color: var(--color-text);
-    text-decoration: none;
-    font-size: 15px;
-    transition: opacity 0.3s;
-}
-
-.footer-column ul li a:hover {
-    opacity: 0.7;
-}
-
-/* ---------------------------------------- */
 /* ---------- Form (Login) ---------- */
 
 .central-page {
