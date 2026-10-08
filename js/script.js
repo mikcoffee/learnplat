@@ -123,7 +123,7 @@ function iniciateLogin() {
     }
 
     if (valid) {
-      messageSuccess.textContent = "Valid login! (without backend yet, nothing is actually sent.)";
+      messageSuccess.textContent = "Valid login!";
       console.log("Valid form:", { email });
     }
   });
