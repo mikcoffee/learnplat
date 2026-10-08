@@ -1,15 +1,20 @@
 :root {
+
   /* Light — Pure White / Dark Bronze / Onyx */
-  --color-bg: #F2F2F2;
-  --color-surface: #FFFFFF;
-  --color-surface-alt: #E8E8E8;
-  --color-border: #A3A3A3;
-  --color-primary: #6B4600;
-  --color-primary-hover: #4A3000;
-  --color-text: #0A0A0A;
-  --color-text-muted: #404040;
-  --color-on-primary: #FFFFFF;
-    
+  --color-bg: #D8D4CD;
+  --color-surface: #F2EFE9;
+  --color-surface-alt: #E8E5DE;
+  --color-border: #C2BDB5;
+  --color-primary: #D4AF37;
+  --color-primary-hover: #B5952F;
+  --color-text: #22201D;
+  --color-text-muted: #5E5952;
+  --color-on-primary: #121212;
+  /* main page only */
+  --color-bg2: #B5952F;
+  --color-text2: #22201D;
+
+            
   /* Typography */
   --font-family-base: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-size-base: 1rem;
@@ -38,6 +43,9 @@
     --color-text: #E8E8E8;
     --color-text-muted: #A0A0A0;
     --color-on-primary: #121212;
+    /* main page only */
+    --color-bg2: #1E1E1E;
+    --color-text2: #D4AF37;
   }
 }
 
@@ -178,7 +186,6 @@ input:focus-visible {
     text-align: center;
     margin: 0;
     padding: 0;
-
 }
 
 .hero h1 {
@@ -206,13 +213,13 @@ input:focus-visible {
 
 .how-it-works {
     padding: 80px 60px;
-    background-color: var(--color-surface);
+    background-color: var(--color-bg2);
 }
 
 .section-title {
     font-size: 48px;
     font-weight: var(--font-weight-bold);
-    color: var(--color-primary);
+    color: var(--color-text2);
     margin-bottom: 50px;
 }
 
@@ -225,14 +232,14 @@ input:focus-visible {
 .step-card {
     border: 2px solid var(--color-border);
     border-radius: var(--radius-lg);
-    padding: 30px;
+    padding: var(--spacing-xl);
     background: var(--color-bg);
 }
 
 .step-title {
     font-size: 32px;
     font-weight: var(--font-weight-bold);
-    color: var(--color-primary);
+    color: var(--color-text2);
     margin-bottom: var(--spacing-md);
 }
 
