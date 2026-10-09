@@ -7,18 +7,11 @@ let groupsMock = [
   { id: 6, subject: "Chemistry", students: 2, schedule: "saturday" },
 ];
 
-let groupsProfileMock = [
-  { id: 1, subject: "Mathematics", students: 5, schedule: "monday" },
-  { id: 2, subject: "Physics", students: 0, schedule: "tuesday" },
-  { id: 3, subject: "Programming", students: 10, schedule: "wednesday" },
-];
-
 const userMock = {
   name: "John Smith",
   email: "john.smith@supermail.com",
   subjects: [1, 2, 3],
 };
-
 
 // ---------- Reusable components ----------
 
