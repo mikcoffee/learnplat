@@ -11,8 +11,24 @@ Data stored in arrays/objects that must persist across page reloads:
 ### 2. User
 - `name` (string): user's name.
 - `email` (string): email address.
-- `subjects` (number[]): array of group `id`s assigned to the user. (it will change to table)
+- `subjects` (number[]): array of group `id`s assigned to the user.
 
 ## Supabase
 - `project name`: learnplat
 - `region`: us-east-1
+
+**Title:** ENTITIES AND ATTRIBUTES
+
+---
+
+| **USER** | **SUBJECT** | **GROUP** | **MEETING** |
+|---|---|---|---|
+| name | **name** | group name | day of the week |
+| **e-mail** | **code** | participant limit | start time |
+| registration date | | creation date | location |
+| type (student or teacher) | | | |
+
+**in bold**: candidate identifier  
+**Attribute types:**: `students` is a derived attribute. `subjects` is a multivalued attribute.
+
+---
