@@ -1,4 +1,4 @@
-## Data to be persisted
+## DATA TO BE PERSISTED
 
 Data stored in arrays/objects that must persist across page reloads:
 
@@ -13,13 +13,13 @@ Data stored in arrays/objects that must persist across page reloads:
 - `email` (string): email address.
 - `subjects` (number[]): array of group `id`s assigned to the user.
 
-## Supabase
+
+## SUPABASE
 - `project name`: learnplat
 - `region`: us-east-1
 
-**Title:** ENTITIES AND ATTRIBUTES
 
----
+## ENTITIES AND ATTRIBUTES
 
 | **USER** | **SUBJECT** | **GROUP** | **MEETING** |
 |---|---|---|---|
@@ -31,4 +31,14 @@ Data stored in arrays/objects that must persist across page reloads:
 **in bold**: candidate identifier  
 **Attribute types:**: `students` is a derived attribute. `subjects` is a multivalued attribute.
 
----
+
+## PROJECT RELATIONSHIPS
+
+| Relationship | Left Side | Right Side | Type |
+| --- | --- | --- | --- |
+| `Item` has `Group` | Exactly one item | Zero or more groups | 1:N |
+| `Group` has `Meeting` | Exactly one group | Zero or more meetings | 1:N |
+| `User` has `Participation` | Exactly one user | Zero or more participations | 1:N |
+| `Group` has `Participation` | Exactly one group | Zero or more participations | 1:N |
+
+The last two relationships together form an N:N relationship between `User` and `Group`, resolved through the `Participation` entity.
