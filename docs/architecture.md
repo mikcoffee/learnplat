@@ -51,3 +51,5 @@ The last two relationships together form an N:N relationship between `User` and 
 - A user has zero or many participations; each participation belongs to exactly one user.
 - A group has zero or many participations; each participation belongs to exactly one group.
 The last two together form the N:N (many-to-many) relationship between users and groups.
+
+Checked: 1NF in the project's ERD
