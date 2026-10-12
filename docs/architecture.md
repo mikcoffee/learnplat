@@ -57,9 +57,34 @@ Checked: 1NF in the project's ERD
 
 ## 2NF, 3NF
 
-Finally, the project model consists of four tables:
+Finally, the project model consists of five tables:
 
-- users (user_id PK, name)
+- users (user_id PK, user_name, email, created_at)
 - subjects (subject_id FK, name, code)
-- groups (group_id PK, name, subject_id FK)
+- groups (group_id PK, group_name, subject_id FK, max_participants, created_at)
 - participations (user_id PK/FK, group_id PK/FK, entered_at)
+- meetings (meeting_id PK, group_id FK, week_day, start_time, local)
+
+## The project's data dictionary
+| Table | Column | Type | Constraints |
+| --- | --- | --- | --- |
+| `users` | `user_id` | `bigint` | primary key, identity |
+| `users` | `user_name` | `text` | `not null` |
+| `users` | `email` | `text` | `not null`, `unique` |
+| `users` | `created_at` | `timestamptz` | `not null`, `default now()` |
+| `subjects` | `subject_id` | `bigint` | primary key, identity |
+| `subjects` | `name` | `text` | `not null`, `unique` |
+| `subjects` | `code` | `text` | `not null`, `unique` |
+| `groups` | `group_id` | `bigint` | primary key, identity |
+| `groups` | `group_name` | `text` | `not null` |
+| `groups` | `subject_id` | `bigint` | `not null`, references `materias` |
+| `groups` | `max_participants` | `integer` | `not null`, `default 10`, `check` greater than 0 |
+| `groups` | `created_at` | `timestamptz` | `not null`, `default now()` |
+| `participants` | `user_id` | `bigint` | composite primary key, references `usuarios`, `cascade` |
+| `participants` | `group_id` | `bigint` | composite primary key, references `grupos`, `cascade` |
+| `participants` | `entered_at` | `date` | `not null`, `default current_date` |
+| `meetings` | `meeting_id` | `bigint` | primary key, `identity` |
+| `meetings` | `group_id` | `bigint` | `not null`, references `grupos`, `cascade` |
+| `meetings` | `week_day` | `smallint` | `not null`, `check` between 1 and 7 (1 = Monday) |
+| `meetings` | `start_time` | `time` | `not null` |
+| `meetings` | `local` | `text` | `not null` |
