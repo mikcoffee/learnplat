@@ -52,4 +52,14 @@ The last two relationships together form an N:N relationship between `User` and 
 - A group has zero or many participations; each participation belongs to exactly one group.
 The last two together form the N:N (many-to-many) relationship between users and groups.
 
+## 1NF
 Checked: 1NF in the project's ERD
+
+## 2NF, 3NF
+
+Finally, the project model consists of four tables:
+
+- users (user_id PK, name)
+- subjects (subject_id FK, name, code)
+- groups (group_id PK, name, subject_id FK)
+- participations (user_id PK/FK, group_id PK/FK, entered_at)
