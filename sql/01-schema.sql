@@ -20,7 +20,7 @@ create table groups (
 );
 
 -- associative table: resolves the N:N relationship between users and groups
-create table participants (
+create table participations (
   user_id  bigint not null references users (user_id) on delete cascade,
   group_id    bigint not null references groups (group_id) on delete cascade,
   entered_at   date not null default current_date,
@@ -38,5 +38,5 @@ create table meetings (
 alter table users       enable row level security;
 alter table subjects       enable row level security;
 alter table groups         enable row level security;
-alter table participants  enable row level security;
+alter table participations enable row level security;
 alter table meetings      enable row level security;

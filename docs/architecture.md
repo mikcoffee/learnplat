@@ -77,14 +77,14 @@ Finally, the project model consists of five tables:
 | `subjects` | `code` | `text` | `not null`, `unique` |
 | `groups` | `group_id` | `bigint` | primary key, identity |
 | `groups` | `group_name` | `text` | `not null` |
-| `groups` | `subject_id` | `bigint` | `not null`, references `materias` |
+| `groups` | `subject_id` | `bigint` | `not null`, references `subjects` |
 | `groups` | `max_participants` | `integer` | `not null`, `default 10`, `check` greater than 0 |
 | `groups` | `created_at` | `timestamptz` | `not null`, `default now()` |
-| `participants` | `user_id` | `bigint` | composite primary key, references `usuarios`, `cascade` |
-| `participants` | `group_id` | `bigint` | composite primary key, references `grupos`, `cascade` |
-| `participants` | `entered_at` | `date` | `not null`, `default current_date` |
+| `participations` | `user_id` | `bigint` | composite primary key, references `users`, `cascade` |
+| `participations` | `group_id` | `bigint` | composite primary key, references `groups`, `cascade` |
+| `participations` | `entered_at` | `date` | `not null`, `default current_date` |
 | `meetings` | `meeting_id` | `bigint` | primary key, `identity` |
-| `meetings` | `group_id` | `bigint` | `not null`, references `grupos`, `cascade` |
+| `meetings` | `group_id` | `bigint` | `not null`, references `groups`, `cascade` |
 | `meetings` | `week_day` | `smallint` | `not null`, `check` between 1 and 7 (1 = Monday) |
 | `meetings` | `start_time` | `time` | `not null` |
 | `meetings` | `local` | `text` | `not null` |
