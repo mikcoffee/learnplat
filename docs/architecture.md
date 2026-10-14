@@ -1,25 +1,25 @@
-## Data to be persisted
+# DATA TO BE PERSISTED
 
 Data stored in arrays/objects that must persist across page reloads:
 
-### 1. Study Groups
+## 1. Study Groups
 - `id` (number): unique identifier (primary key).
 - `subject` (string): subject name.
 - `students` (number): number of students.
 - `schedule` (string): day of the week (schedule).
 
-### 2. User
+## 2. User
 - `name` (string): user's name.
 - `email` (string): email address.
 - `subjects` (number[]): array of group `id`s assigned to the user.
 
-## Supabase
+
+# SUPABASE
 - `project name`: learnplat
 - `region`: us-east-1
 
-**Title:** ENTITIES AND ATTRIBUTES
 
----
+# ENTITIES AND ATTRIBUTES
 
 | **USER** | **SUBJECT** | **GROUP** | **MEETING** |
 |---|---|---|---|
@@ -31,4 +31,60 @@ Data stored in arrays/objects that must persist across page reloads:
 **in bold**: candidate identifier  
 **Attribute types:**: `students` is a derived attribute. `subjects` is a multivalued attribute.
 
----
+
+# PROJECT RELATIONSHIPS
+
+| Relationship | Left Side | Right Side | Type |
+| --- | --- | --- | --- |
+| `Item` has `Group` | Exactly one item | Zero or more groups | 1:N |
+| `Group` has `Meeting` | Exactly one group | Zero or more meetings | 1:N |
+| `User` has `Participation` | Exactly one user | Zero or more participations | 1:N |
+| `Group` has `Participation` | Exactly one group | Zero or more participations | 1:N |
+
+The last two relationships together form an N:N relationship between `User` and `Group`, resolved through the `Participation` entity.
+
+# DER
+![DER](der.png)
+
+- A subject has zero or many groups; each group belongs to exactly one subject.
+- A group has zero or many meetings; each meeting belongs to exactly one group.
+- A user has zero or many participations; each participation belongs to exactly one user.
+- A group has zero or many participations; each participation belongs to exactly one group.
+The last two together form the N:N (many-to-many) relationship between users and groups.
+
+## 1NF
+Checked: 1NF in the project's ERD
+
+## 2NF, 3NF
+
+Finally, the project model consists of five tables:
+
+- users (user_id PK, user_name, email, created_at)
+- subjects (subject_id FK, name, code)
+- groups (group_id PK, group_name, subject_id FK, max_participants, created_at)
+- participations (user_id PK/FK, group_id PK/FK, entered_at)
+- meetings (meeting_id PK, group_id FK, week_day, start_time, local)
+
+## The project's data dictionary
+| Table | Column | Type | Constraints |
+| --- | --- | --- | --- |
+| `users` | `user_id` | `bigint` | primary key, identity |
+| `users` | `user_name` | `text` | `not null` |
+| `users` | `email` | `text` | `not null`, `unique` |
+| `users` | `created_at` | `timestamptz` | `not null`, `default now()` |
+| `subjects` | `subject_id` | `bigint` | primary key, identity |
+| `subjects` | `name` | `text` | `not null`, `unique` |
+| `subjects` | `code` | `text` | `not null`, `unique` |
+| `groups` | `group_id` | `bigint` | primary key, identity |
+| `groups` | `group_name` | `text` | `not null` |
+| `groups` | `subject_id` | `bigint` | `not null`, references `subjects` |
+| `groups` | `max_participants` | `integer` | `not null`, `default 10`, `check` greater than 0 |
+| `groups` | `created_at` | `timestamptz` | `not null`, `default now()` |
+| `participations` | `user_id` | `bigint` | composite primary key, references `users`, `cascade` |
+| `participations` | `group_id` | `bigint` | composite primary key, references `groups`, `cascade` |
+| `participations` | `entered_at` | `date` | `not null`, `default current_date` |
+| `meetings` | `meeting_id` | `bigint` | primary key, `identity` |
+| `meetings` | `group_id` | `bigint` | `not null`, references `groups`, `cascade` |
+| `meetings` | `week_day` | `smallint` | `not null`, `check` between 1 and 7 (1 = Monday) |
+| `meetings` | `start_time` | `time` | `not null` |
+| `meetings` | `local` | `text` | `not null` |
