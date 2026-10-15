@@ -1,90 +1,145 @@
-# DATA TO BE PERSISTED
+The data description in the current file differs from what is presented in the HTML/CSS/JS project and is more up-to-date. The HTML project will gradually be updated to match the description in this file.
 
-Data stored in arrays/objects that must persist across page reloads:
+Module 01
 
-## 1. Study Groups
-- `id` (number): unique identifier (primary key).
-- `subject` (string): subject name.
-- `students` (number): number of students.
-- `schedule` (string): day of the week (schedule).
+## Data that needs to persist
 
-## 2. User
+The following data must survive a page reload.
+
+### 1. User (Teacher / Student)
+- `role` (string): user role.
 - `name` (string): user's name.
 - `email` (string): email address.
-- `subjects` (number[]): array of group `id`s assigned to the user.
+- `sign-up date` (date): registration date.
+- `subjects` (number[]): **multivalued attribute** — array of subject `id`s the user is linked to.
 
+### 2. Subject
+- `name` (string): subject name.
+- `code` (string): subject code.
 
-# SUPABASE
-- `project name`: learnplat
+### 3. Lesson
+- `teacher` (number): reference to a User.
+- `student` (number): reference to a User.
+- `subject` (number): reference to a Subject.
+- `day of the week` (number): day (1–7).
+- `start time` (string): lesson start.
+- `end time` (string): lesson end.
+- `status` (string): lesson status.
+
+### 4. Teacher Schedule
+- `teacher` (number): reference to a User.
+- `day of the week` (number): day (1–7).
+- `start time` (string): available slot start.
+- `end time` (string): available slot end.
+
+---
+Module 02
+
+## Supabase
+- `project name`: learnplat2
 - `region`: us-east-1
 
+---
+Module 03
 
-# ENTITIES AND ATTRIBUTES
+# Entities and attributes
 
-| **USER** | **SUBJECT** | **GROUP** | **MEETING** |
-|---|---|---|---|
-| name | **name** | group name | day of the week |
-| **e-mail** | **code** | participant limit | start time |
-| registration date | | creation date | location |
-| type (student or teacher) | | | |
+| Entity | Attributes | Identifier candidates |
+|---|---|---|
+| User (Teacher / Student) | role, name, email, sign-up date, **subjects[]** (multivalued) | email |
+| Subject | name, code | name, code |
+| Lesson | teacher, student, subject, day of the week, start time, end time, status | (no natural one) |
+| Teacher Schedule | teacher, day of the week, start time, end time | (no natural one) |
 
-**in bold**: candidate identifier  
-**Attribute types:**: `students` is a derived attribute. `subjects` is a multivalued attribute.
+Decision:
+- no derived attributes are stored as columns
+- `User` entity contains a **multivalued attribute**, which holds more than one value at the same time.
 
+---
+Module 04
 
-# PROJECT RELATIONSHIPS
+# Project Relationships
 
 | Relationship | Left Side | Right Side | Type |
 | --- | --- | --- | --- |
-| `Item` has `Group` | Exactly one item | Zero or more groups | 1:N |
-| `Group` has `Meeting` | Exactly one group | Zero or more meetings | 1:N |
-| `User` has `Participation` | Exactly one user | Zero or more participations | 1:N |
-| `Group` has `Participation` | Exactly one group | Zero or more participations | 1:N |
+| `User` has `TeacherSubject` | Exactly one user | Zero or more teacher_subjects | 1:N |
+| `Subject` has `TeacherSubject` | Exactly one subject | Zero or more teacher_subjects | 1:N |
+| `TeacherSubject` has `Lesson` | Exactly one teacher_subject | Zero or more lessons | 1:N |
+| `User` has `Lesson` | Exactly one user | Zero or more lessons | 1:N |
+| `User` has `TeacherSchedule` | Exactly one user | Zero or more teacher_schedules | 1:N |
 
-The last two relationships together form an N:N relationship between `User` and `Group`, resolved through the `Participation` entity.
+The first two relationships together form an N:N relationship between `User` and `Subject`, resolved through the `TeacherSubject` associative entity. 
+Attributes belonging to the `TeacherSubject` link: `teach_subj_id`, `user_id`, `subject_id`, `created_at`.
+
+---
+Module 05
 
 # DER
 ![DER](der.png)
 
-- A subject has zero or many groups; each group belongs to exactly one subject.
-- A group has zero or many meetings; each meeting belongs to exactly one group.
-- A user has zero or many participations; each participation belongs to exactly one user.
-- A group has zero or many participations; each participation belongs to exactly one group.
-The last two together form the N:N (many-to-many) relationship between users and groups.
+- A user (teacher) has zero or many teacher_subjects; each teacher_subject belongs to exactly one user (teacher).
+- A subject has zero or many teacher_subjects; each teacher_subject belongs to exactly one subject.
+The last two together form the N:N (many-to-many) relationship between users (teachers) and subjects.
+- A teacher_subject has zero or many lessons; each lesson belongs to exactly one teacher_subject.
+- A user (student) has zero or many lessons; each lesson belongs to exactly one user (student).
+- A user (teacher) has zero or many teacher_schedules; each teacher_schedule belongs to exactly one user (teacher).
 
-## 1NF
-Checked: 1NF in the project's ERD
+---
+Module 06
+# 1NF
+1NF: Fully compliant.
 
-## 2NF, 3NF
+- Each cell has a single value, never a list.
+- There are no repeated columns for the same kind of data.
+- Each row has a key that uniquely identifies it.
+- All rows have the same structure.
+
+---
+Module 07
+# 2NF, 3NF
+
+2NF: Fully compliant.    
+- All tables use single-column surrogate primary keys.
+- Since there are no composite keys, partial dependencies are impossible, automatically satisfying 2NF.
+
+3NF: Fully compliant.  
+- No transitive dependencies exist
+- All non-key attributes depend solely on the primary key, not on each other
 
 Finally, the project model consists of five tables:
 
-- users (user_id PK, user_name, email, created_at)
-- subjects (subject_id FK, name, code)
-- groups (group_id PK, group_name, subject_id FK, max_participants, created_at)
-- participations (user_id PK/FK, group_id PK/FK, entered_at)
-- meetings (meeting_id PK, group_id FK, week_day, start_time, local)
+- users (user_id PK, role, user_name, email, created_at)
+- subjects (subject_id PK, name, code)
+- teacher_subjects (teach_subj_id PK, user_id FK, subject_id FK, created_at)
+- lessons (lesson_id PK, user_id FK, teach_subj_id FK, day_of_week, start_time, end_time, status)
+- teacher_schedules (sch_id PK, user_id FK, day_of_week, start_time, end_time)
 
-## The project's data dictionary
+---
+Module 08
+# The project's data dictionary
 | Table | Column | Type | Constraints |
 | --- | --- | --- | --- |
 | `users` | `user_id` | `bigint` | primary key, identity |
+| `users` | `role` | `text` | `not null` |
 | `users` | `user_name` | `text` | `not null` |
 | `users` | `email` | `text` | `not null`, `unique` |
 | `users` | `created_at` | `timestamptz` | `not null`, `default now()` |
 | `subjects` | `subject_id` | `bigint` | primary key, identity |
 | `subjects` | `name` | `text` | `not null`, `unique` |
 | `subjects` | `code` | `text` | `not null`, `unique` |
-| `groups` | `group_id` | `bigint` | primary key, identity |
-| `groups` | `group_name` | `text` | `not null` |
-| `groups` | `subject_id` | `bigint` | `not null`, references `subjects` |
-| `groups` | `max_participants` | `integer` | `not null`, `default 10`, `check` greater than 0 |
-| `groups` | `created_at` | `timestamptz` | `not null`, `default now()` |
-| `participations` | `user_id` | `bigint` | composite primary key, references `users`, `cascade` |
-| `participations` | `group_id` | `bigint` | composite primary key, references `groups`, `cascade` |
-| `participations` | `entered_at` | `date` | `not null`, `default current_date` |
-| `meetings` | `meeting_id` | `bigint` | primary key, `identity` |
-| `meetings` | `group_id` | `bigint` | `not null`, references `groups`, `cascade` |
-| `meetings` | `week_day` | `smallint` | `not null`, `check` between 1 and 7 (1 = Monday) |
-| `meetings` | `start_time` | `time` | `not null` |
-| `meetings` | `local` | `text` | `not null` |
+| `teacher_subjects` | `teach_subj_id` | `bigint` | primary key, identity |
+| `teacher_subjects` | `user_id` | `bigint` | `not null`, references `users`, `on delete cascade` |
+| `teacher_subjects` | `subject_id` | `bigint` | `not null`, references `subjects`, `on delete cascade` |
+| `teacher_subjects` | `created_at` | `date` | `not null`, `default current_date` |
+| `lessons` | `lesson_id` | `bigint` | primary key, identity |
+| `lessons` | `user_id` | `bigint` | `not null`, references `users` |
+| `lessons` | `teach_subj_id` | `bigint` | `not null`, references `teacher_subjects` |
+| `lessons` | `day_of_week` | `smallint` | `not null`, `check` between 1 and 7 (1 = Monday, 7 = Sunday) |
+| `lessons` | `start_time` | `time` | `not null` |
+| `lessons` | `end_time` | `time` | `not null` |
+| `lessons` | `status` | `text` | `not null` |
+| `teacher_schedules` | `sch_id` | `bigint` | primary key, identity |
+| `teacher_schedules` | `user_id` | `bigint` | `not null`, references `users` |
+| `teacher_schedules` | `day_of_week` | `smallint` | `not null`, `check` between 1 and 7 (1 = Monday, 7 = Sunday) |
+| `teacher_schedules` | `start_time` | `time` | `not null` |
+| `teacher_schedules` | `end_time` | `time` | `not null` |

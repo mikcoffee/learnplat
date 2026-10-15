@@ -6,40 +6,49 @@ insert into subjects (name, code) values
   ('Literature',  'LIT101'),
   ('Chemistry',   'CHE101');
 
-insert into users (user_name, email) values
-  ('James Anderson',  'james.anderson@example.com'),
-  ('Emily Thompson',  'emily.thompson@example.com'),
-  ('Michael Davis',   'michael.davis@example.com'),
-  ('Sarah Wilson',    'sarah.wilson@example.com'),
-  ('David Martinez',  'david.martinez@example.com'),
-  ('Jessica Brown',   'jessica.brown@example.com'),
-  ('Christopher Lee', 'christopher.lee@example.com'),
-  ('Olivia Taylor',   'olivia.taylor@example.com');
+insert into users (user_name, role, email) values
+  ('James Anderson',  'teacher', 'james.anderson@example.com'),
+  ('Emily Thompson',  'teacher', 'emily.thompson@example.com'),
+  ('Michael Davis',   'student', 'michael.davis@example.com'),
+  ('Sarah Wilson',    'student', 'sarah.wilson@example.com'),
+  ('David Martinez',  'student', 'david.martinez@example.com'),
+  ('Jessica Brown',   'student', 'jessica.brown@example.com'),
+  ('Christopher Lee', 'student', 'christopher.lee@example.com'),
+  ('Olivia Taylor',   'student', 'olivia.taylor@example.com');
 
-insert into groups (group_name, subject_id, max_participants) values
-  ('Calculus Derivatives',   1, 6),
-  ('Newton Laws',            2, 5),
-  ('Python OOP',             3, 8),
-  ('French Revolution',      4, 5),
-  ('Macbeth Themes',         5, 6),
-  ('Chemical Bonding',       6, 4);
+-- user_id = teacher
+insert into teacher_subjects (user_id, subject_id, created_at) values
+  (1, 1, '2026-09-01'),
+  (1, 2, '2026-09-02'),
+  (1, 3, '2026-09-03'),
+  (2, 4, '2026-09-04'),
+  (2, 5, '2026-09-05'),
+  (1, 6, '2026-09-06'),
+  (1, 1, '2026-09-07');
 
-insert into participations (user_id, group_id, entered_at) values
-  (1, 1, '2026-09-01'), (1, 2, '2026-09-03'), (1, 3, '2026-09-05'),
-  (2, 1, '2026-09-02'), (2, 3, '2026-09-06'),
-  (3, 2, '2026-09-05'), (3, 3, '2026-09-07'), (3, 4, '2026-09-08'),
-  (4, 3, '2026-09-08'), (4, 5, '2026-09-09'),
-  (5, 1, '2026-09-10'), (5, 6, '2026-09-10'),
-  (6, 3, '2026-09-11'),
-  (7, 4, '2026-09-12'), (7, 5, '2026-09-12'),
-  (8, 3, '2026-09-13');
+-- user_id = student
+insert into lessons (user_id, teach_subj_id, day_of_week, start_time, end_time, status) values
+  (7, 1, 1, '18:00', '19:00', 'completed'),
+  (4, 2, 2, '19:00', '20:00', 'canceled'),
+  (6, 3, 3, '10:00', '11:00', 'canceled'),
+  (3, 4, 4, '19:30', '20:30', 'scheduled'),
+  (8, 5, 5, '17:00', '18:00', 'scheduled'),
+  (3, 6, 6, '18:30', '19:30', 'scheduled'),
+  (5, 7, 7, '16:00', '17:00', 'scheduled');
 
-insert into meetings (group_id, week_day, start_time, local) values
-  (1, 2, '18:00', 'Lecture Hall'),
-  (2, 4, '19:00', 'Science Laboratory'),
-  (3, 6, '10:00', 'Computer Studio'),
-  (3, 3, '19:30', 'Computer Studio'),
-  (4, 1, '17:00', 'Seminar Room'),
-  (5, 3, '18:30', 'Reading Room'),
-  (6, 5, '16:00', 'Research Laboratory');
-
+-- user_id = teacher
+insert into teacher_schedules (user_id, day_of_week, start_time, end_time) values
+  (1, 1, '9:00', '21:00'),
+  (1, 2, '9:00', '21:00'),
+  (1, 3, '9:00', '21:00'),
+  (1, 4, '9:00', '21:00'),
+  (1, 5, '9:00', '21:00'),
+  (1, 6, '9:00', '21:00'),
+  (1, 7, '9:00', '21:00'),
+  (2, 1, '9:00', '21:00'),
+  (2, 2, '9:00', '21:00'),
+  (2, 3, '9:00', '21:00'),
+  (2, 4, '9:00', '21:00'),
+  (2, 5, '9:00', '21:00'),
+  (2, 6, '9:00', '21:00'),
+  (2, 7, '9:00', '21:00');
